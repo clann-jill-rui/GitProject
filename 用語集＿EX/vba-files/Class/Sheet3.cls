@@ -8,7 +8,8 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Option Explicit
-Sub guroup()
+
+'メモ---------------------------------------
 
 'Dim oya As String
 'oya = "親カテゴリ"
@@ -45,32 +46,61 @@ Sub guroup()
 '    '条件に当てはまる列＝col　、　グループ化範囲＝2
 '
 '    Next
+'-------------------------------------------
 
-Dim col_Group As Grouping
-Set col_Group = New Grouping
+'-------------------------------------------
+Sub guroup()
+
+  Dim col_Group As Grouping
+  Set col_Group = New Grouping
     
-    col_Group.class_Init ("親カテゴリ")
-    col_Group.col_Grouping (2)
+    Call col_Group.class_Init("親カテゴリ", 6, 3)
+    Call col_Group.col_Grouping(2)
         
 
-    Set col_Group = Nothing
-    End Sub
+  Set col_Group = Nothing
+End Sub
 
+'-------------------------------------------
 
 Sub reset()
 
-Dim col_Group As Grouping
-Set col_Group = New Grouping
+  Dim col_Group As Grouping
+  Set col_Group = New Grouping
     
-    col_Group.class_Init ("親カテゴリ")
+    Call col_Group.class_Init("親カテゴリ", 6, 3)
     col_Group.col_Grouping_Reset
     
-     Set col_Group = Nothing
+  Set col_Group = Nothing
      
 End Sub
 
-Sub ins()
+'-------------------------------------------
+Sub hylink()
 
-
+  Dim col_Group As Grouping
+  Set col_Group = New Grouping
+  
+    Call col_Group.class_Init("親カテゴリ", 6, 3)
+    
+    Call col_Group.hyLinkCreate(2, "親カテゴリ", 4, 4)
+    'row=行 ,col(column)=列
+    
+    Debug.Print col_Group.aList(1)
+    'Set col_Group = Nothing
 
 End Sub
+
+'-------------------------------------------
+Sub tes()
+
+Dim i As Integer
+
+For i = 1 To 10
+
+Debug.Print Worksheets(i).Name
+
+Next i
+End Sub
+  
+
