@@ -75,7 +75,6 @@ Sub reset()
      
 End Sub
 
-'-------------------------------------------
 Sub hylink()
 
   Dim col_Group As Grouping
@@ -91,7 +90,6 @@ Sub hylink()
 
 End Sub
 
-'-------------------------------------------
 Sub tes()
 
 Dim i As Integer

@@ -119,6 +119,9 @@ Sub hyLinkCreate(sheetNumber As Integer, kaisi_Link As String, row As Integer, c
     Dim i As Variant
     Dim c As Integer: c = 0
 
+    '指定列を　開始＋100　行まで空白にする
+    ThisWorkbook.Worksheets(sheetNumber).Range(Cells(row, col), Cells(row + 100, col)).Value = ""
+
     On Error GoTo Ehandle
     'エラーハンドル　Ehandle　にジャンプ
 
@@ -133,9 +136,6 @@ Sub hyLinkCreate(sheetNumber As Integer, kaisi_Link As String, row As Integer, c
             SubAddress:=ThisWorkbook.Worksheets(sheetNumber).Cells(row + 1, i).Address, _
             TextToDisplay:=ThisWorkbook.Worksheets(sheetNumber).Cells(row + 1, i).Value)
             
-            'Worksheet.Hyperlinkオブジェクトの.Addメソッドでリンクを生成
-            'anchor = ,Address= ,SubAddress=,TextToDisplay=
-
         c = c + 1
         
         Next i
