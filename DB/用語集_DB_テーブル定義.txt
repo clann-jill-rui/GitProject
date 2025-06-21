@@ -1,0 +1,68 @@
+CREATE TABLE Yougosyu (
+    YougoID TEXT(30) ,
+    Yougo TEXT NOT NULL,
+    Imi MEMO NOT NULL,
+    OyaCategoryID TEXT(10) NOT NULL,
+    KoCategoryID TEXT(10) NOT NULL,
+    MagoCategoryID TEXT(10) NOT NULL,
+    Etsuransu LONG,
+    Link MEMO,
+    Sakuseibi DATE NOT NULL, 
+    Kousinbi DATE,
+    ShuseiNaiyou MEMO,
+    PRIMARY KEY(YougoID),
+    FOREIGN KEY(OyaCategoryID,KoCategoryID,MagoCategoryID)   REFERENCES  MagoCategory(OyaCategoryID,KoCategoryID,MagoCategoryID)
+);
+
+
+
+CREATE TABLE KoCategory(
+    KoCategoryID    TEXT(10),
+    KoCategoryName    TEXT(50) NOT NULL,
+    OyaCategoryID    TEXT(10),
+    PRIMARY KEY(KoCategoryID,OyaCategoryID),
+    FOREIGN KEY(OyaCategoryID)   REFERENCES  OyaCategory(OyaCategoryID)  ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE MagoCategory(
+    MagoCategoryID TEXT(10) ,
+    MagoCategoryName  TEXT(50) NOT NULL,
+    OyaCategoryID TEXT(10),
+    KoCategoryID TEXT(10),
+    PRIMARY KEY(OyaCategoryID,KoCategoryID,MagoCategoryID),
+    FOREIGN KEY(KoCategoryID,OyaCategoryID) references KoCategory(KoCategoryID,OyaCategoryID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE OyaCategory(
+    OyaCategoryID    TEXT(10),
+    OyaCategoryName    TEXT(50) NOT NULL,
+    PRIMARY KEY(OyaCategoryID)
+);
+
+CREATE TABLE Dougigo (
+    YougoID TEXT(30),
+    DougigoID TEXT(30),
+    PRIMARY KEY (YougoID,DougigoID),
+    FOREIGN KEY (YougoID) REFERENCES Yougosyu(YougoID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (DougigoID) REFERENCES Yougosyu(YougoID) ON DELETE CASCADE ON UPDATE CASCADEFOREIGN KEY (YougoID,DougigoID) REFERENCES Yougosyu(YougoID,YougoID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Kanrengo (
+    YougoID TEXT(30),
+    KanrengoID TEXT(30),
+    PRIMARY KEY (YougoID,KanrengoID),
+    FOREIGN KEY (YougoID) REFERENCES Yougosyu(YougoID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (KanrengoID) REFERENCES Yougosyu(YougoID) ON DELETE CASCADE ON UPDATE CASCADEFOREIGN KEY (YougoID,KanrengoID) REFERENCES Yougosyu(YougoID,YougoID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Taigigo (
+    YougoID TEXT(30),
+    TaigigoID TEXT(30),
+    PRIMARY KEY (YougoID,TaigigoID),
+    FOREIGN KEY (YougoID) REFERENCES Yougosyu(YougoID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (TaigigoID) REFERENCES Yougosyu(YougoID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+※ＡＣＣＥＳＳではCASCADEをSQLに組み込むとエラーがでるため、GUI（リレーション→連鎖更新、連鎖削除）で実装
